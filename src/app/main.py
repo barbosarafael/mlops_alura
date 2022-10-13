@@ -8,9 +8,15 @@ import os
 colunas = ['tamanho','ano','garagem']
 modelo = pickle.load(open('models/modelo.sav','rb'))
 
+with open('reports/pass.txt') as myfile:
+    rows = myfile.readlines()[0:2]
+
+    user = rows[0].strip('\n')
+    password = rows[1].strip('\n')
+
 app = Flask(__name__)
-app.config['BASIC_AUTH_USERNAME'] = os.environ.get('BASIC_AUTH_USERNAME')
-app.config['BASIC_AUTH_PASSWORD'] = os.environ.get('BASIC_AUTH_PASSWORD')
+app.config['BASIC_AUTH_USERNAME'] = user
+app.config['BASIC_AUTH_PASSWORD'] = password
 
 basic_auth = BasicAuth(app)
 
